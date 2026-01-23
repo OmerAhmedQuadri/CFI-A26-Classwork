@@ -1,51 +1,54 @@
+// // let name = 'omer'
+// // console.log(name)
+
+// // console.log('My name is Omer')
+// // console.log('My age is 13')
+// // console.log('I am learning JavaScript')
+
 // let name = 'omer'
-// console.log(name)
+// let age = 13
+// let language = 'js'
 
-// console.log('My name is Omer')
-// console.log('My age is 13')
-// console.log('I am learning JavaScript')
+// console.log('my name is', name)
+// console.log('my age is', age)
+// console.log('i am learning', language)
 
-let name = 'omer'
-let age = 13
-let language = 'js'
-
-console.log('my name is', name)
-console.log('my age is', age)
-console.log('i am learning', language)
-
-console.log(typeof age)
-console.log(typeof name)
+// console.log(typeof age)
+// console.log(typeof name)
 
 
-let isRaining = false
+// let isRaining = false
 
-console.log('raining: ', isRaining)
+// console.log('raining: ', isRaining)
 
-let 
+// let 
 
 
 
-/*
-this is a 
-multiline comment
-*/
+// /*
+// this is a 
+// multiline comment
+// */
 
-/*
-premitive
-DATA TYPES:
-number:
-let a = 10
+// /*
+// premitive
+// DATA TYPES:
+// number:
+// let a = 10
 
-string
-let name = 'omer'
+// string
+// let name = 'omer'
 
-boolean
-let raining = false
+// boolean
+// let raining = false
 
-undefined 
+// undefined 
 
-null
+// null
 
-bigint
-*/
+// bigint
+// */
 
+let id = Symbol(10)
+let id2 = Symbol(10)
+console.log(id == id2)
