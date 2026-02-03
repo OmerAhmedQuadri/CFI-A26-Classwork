@@ -39,4 +39,9 @@ do {
     userInput = readlineSync.questionInt('Enter the one time password: ')
 } while (oneTimePassword !== userInput);
 
-loginStatus ? console.log('User logged in successfully!!'):console.log('failed')
+// loginStatus ? console.log('User logged in successfully!!'):console.log('failed')
+if (loginStatus) {
+    console.log('User logged in successfully!!')
+} else {
+    console.log('failed')
+}
