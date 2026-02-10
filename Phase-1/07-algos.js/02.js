@@ -1,4 +1,5 @@
 import readline from 'readline-sync'
+
 function guessTheNumber () {
     let target = Math.floor(Math.random() * 100 + 1)
     // console.log(target)

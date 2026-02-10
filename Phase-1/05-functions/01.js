@@ -1,8 +1,8 @@
-function sayHello(name) {
+export default function sayHello(name) {
     console.log('Hello '+name)
 }
-
-// console.log(sayHello)
-sayHello('omer')
-sayHello('taha')
-sayHello('maseeh')
+export {sayHello}
+// // console.log(sayHello)
+// sayHello('omer')
+// sayHello('taha')
+// sayHello('maseeh')
