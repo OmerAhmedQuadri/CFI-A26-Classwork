@@ -1,3 +1,15 @@
+
+// const nums = [23, 54, 96, 108, 73]
+
+// const res = nums.find( (n) => {
+//     if(n%2==0) return true
+// } )
+
+// const res2 = nums.find( (n) => n>100)
+
+// console.log(res)
+// console.log(res2)
+
 const users = [
     { name: 'omer', age: 170},
     { name: 'zayd', age: 23},
@@ -12,18 +24,9 @@ const users = [
     { name: 'afnan', age: 23},
 ]
 
-// const usersObj = {
-//     '17': ['omer'],
-//     '21': ['fahad', 'atif', 'yash']
-// }
 
-const userObject = users.reduce( (acc, usr) => {
-    console.log(acc, usr)
+const res = users.find( (usr) => {
+    if(usr.age > 23 && usr.age < 100) return true
+})
 
-    if(acc[usr.age]) acc[usr.age].push(usr.name)
-    else acc[usr.age] = [usr.name]
-
-    return acc
-}, {})
-
-console.log(userObject)
+console.log(res)
