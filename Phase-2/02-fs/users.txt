@@ -1,0 +1,17 @@
+[
+    {
+        "name": "Omer",
+        "age": 21,
+        "city": "Hyderabad"
+    },
+    {
+        "name": "Fahad",
+        "age": 21,
+        "city": "Towlichoki"
+    },
+    {
+        "name": "Fazal",
+        "age": 22,
+        "city": "MasabTank"
+    }
+]
