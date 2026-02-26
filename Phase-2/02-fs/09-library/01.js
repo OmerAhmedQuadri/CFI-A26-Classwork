@@ -93,6 +93,7 @@ fs.readFile(db, 'utf-8', (err, data) => {
                 return
 
             default:
+                console.log('Invalid choice!');
                 break;
         }
     }
