@@ -36,6 +36,8 @@ async function saveUsers(users) {
 }
 
 async function main() {
+
+    
     let users = await fetchUsers()
     // console.log(users);
     users = users.filter((usr)=> {
@@ -47,8 +49,10 @@ async function main() {
             name: usr.login
         }
     })
+
+
     let response = await saveUsers(users)
-    console.log(response);
+    // console.log(response);
     if (response.ok == true){
         console.log(chalk.greenBright(response.message));
     }
