@@ -8,5 +8,12 @@
         "id": 1772444976505,
         "username": "fazal",
         "password": "$2b$12$i6JumoREZQbACE9uQ4gyM.SYGJU9x7vtZ0m8Y0BHD7QDES/2Euica"
+    },
+    {
+        "id": 1772614154101,
+        "email": "omer@code.in",
+        "password": "$2b$12$DpaMIbd2E0pnV.0Z4PDdquOulcd84m8wJPl.6YYz02Ipkwdd0fQGm",
+        "verified": true,
+        "otp": 368306
     }
 ]

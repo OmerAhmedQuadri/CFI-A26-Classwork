@@ -37,4 +37,7 @@ export async function sendEmail({ to, otp }) {
     }
 }
 
-sendEmail({to:'omer.quadri64@gmail.com', otp:222222})
+// sendEmail({
+//     to:'omer.quadri64@gmail.com', 
+//     otp:222222
+// })
