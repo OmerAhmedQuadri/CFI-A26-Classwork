@@ -1,0 +1,38 @@
+[
+    {
+        "id": 1772184057210,
+        "task": "prepare for phase 1",
+        "deadline": "monday",
+        "priority": "high"
+    },
+    {
+        "id": 1772184057211,
+        "task": "prepare for phase 2",
+        "deadline": "tue",
+        "priority": "high"
+    },
+    {
+        "id": 1772184057212,
+        "task": "prepare for phase 3",
+        "deadline": "web",
+        "priority": "high"
+    },
+    {
+        "id": 1772184057220,
+        "task": "prepare for interview",
+        "deadline": "sunday",
+        "priority": "high"
+    },
+    {
+        "id": 1772184057221,
+        "task": "prepare for interview",
+        "deadline": "sunday",
+        "priority": "high"
+    },
+    {
+        "id": 1772184057225,
+        "task": "learn express",
+        "deadline": "sunday",
+        "priority": "high"
+    }
+]
