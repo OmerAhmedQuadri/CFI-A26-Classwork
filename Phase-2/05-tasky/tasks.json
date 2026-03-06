@@ -19,15 +19,13 @@
     },
     {
         "id": 1772184057220,
-        "task": "prepare for interview",
-        "deadline": "sunday",
         "priority": "high"
     },
     {
         "id": 1772184057221,
         "task": "prepare for interview",
-        "deadline": "sunday",
-        "priority": "high"
+        "deadline": "tuesday",
+        "priority": "low"
     },
     {
         "id": 1772184057225,
