@@ -2,15 +2,20 @@ import rs from 'readline-sync'
 import axios from 'axios'
 const BASE_URL = 'http://localhost:3000/'
 
-const fetchData = async (operation) =>{
+const fetchData = async (operation) => {
+    try {
+        const num1 = rs.question('Enter a number: ')
+        const num2 = rs.question('Enter another number: ')
+        const API_URL = BASE_URL + operation + '/' + num1 + '/' + num2
+        const response = await axios.get(API_URL)
 
-    const num1 = rs.question('Enter a number: ')
-    const num2 = rs.question('Enter another number: ')
-    const API_URL = BASE_URL + operation + '/' + num1 + '/' + num2
-    const response = await axios.get(API_URL)
+        console.log('Message: ' + response.data.message);
+        console.log('Answer: ' + response.data.data);
 
-    console.log('Message: ' + response.data.message);
-    console.log('Answer: ' + response.data.data);
+    } catch (error) {
+        console.log('Error: ',error);
+
+    }
 }
 
 
@@ -22,7 +27,7 @@ const cli = async () => {
         4: 'div',
         5: 'mod',
     }
-    while(true){
+    while (true) {
         console.log('\n===CALCULATOR CLI===');
         console.log('1. Add');
         console.log('2. Sub');
@@ -32,11 +37,11 @@ const cli = async () => {
         console.log('0. Exit');
         const choice = rs.questionInt('Enter your choice: ')
 
-        if(!choice){
+        if (!choice) {
             console.log('Exiting...');
             return
         }
-        if(!OPTIONS[choice]){
+        if (!OPTIONS[choice]) {
             console.log('Invalid choice!');
             continue
         }

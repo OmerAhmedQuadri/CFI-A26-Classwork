@@ -5,14 +5,24 @@ const PORT = 3000
 const app = express()
 
 async function serverLog(req) {
-    const logData = `\n${new Date().toLocaleString()} || ${req.method} ${req.url} ${req.socket.remoteAddress}`
-    await fs.appendFile('./server.log', logData)
+    try {
+        const logData = `\n${new Date().toLocaleString()} || ${req.method} ${req.url} ${req.socket.remoteAddress}`
+        await fs.appendFile('./server.log', logData)
+    } catch (error) {
+        console.log('logging  error:', error);
+    }
 }
 
 app.use(async (req, res, next) => {
-    await serverLog(req)
-    // console.log(req.url);
-    next()
+    try {
+        await serverLog(req)
+        // console.log(req.url);
+        next()
+    } catch (error) {
+        console.log('logging middleware error:', error);
+        next()
+    }
+
 })
 
 // app.use((req, res, next) => {
@@ -142,6 +152,7 @@ app.get('/div/:num1/:num2', (req, res) => {
                 message: 'Division by 0 is not possible',
                 data: null
             })
+            return
         }
 
         res.send({
