@@ -16,6 +16,12 @@ const createTask = async (req, res) => {
                 message: 'Incomplete or invalid data',
             })
         }
+        if (!['high', 'medium', 'low'].includes(priority)) {
+            return res.status(400).send({
+                success: false,
+                message: 'Invalid task priority',
+            })
+        }
 
         const existingTask = await Task.findOne({ task: task })
 
@@ -80,7 +86,7 @@ const getTaskById = async (req, res) => {
         }
 
         const task = await Task.findById(id)
-        console.log(task);
+        // console.log(task);
         if (!task) {
             return res.status(400).send({
                 success: false,
@@ -116,7 +122,7 @@ const getTaskByPriority = async (req, res) => {
 
         const task = await Task.find({ priority })
         
-        console.log(task);
+        // console.log(task);
         if (!task) {
             return res.status(400).send({
                 success: false,
@@ -200,6 +206,12 @@ const updateTask = async (req, res) => {
             return res.status(400).send({
                 success: false,
                 message: 'Incomplete data',
+            })
+        }
+        if (priority && !['high', 'medium', 'low'].includes(priority)) {
+            return res.status(400).send({
+                success: false,
+                message: 'Invalid task priority',
             })
         }
 
