@@ -1,5 +1,7 @@
 import express from 'express'
-import { registerUser } from '../controllers/user.controllers.js'
+import { loginUser, registerUser } from '../controllers/user.controllers.js'
+import { loginMiddleware, registerMiddleware } from '../middlewares/user.middlewares.js'
+
 const router = express.Router()
 
 
@@ -10,7 +12,15 @@ router.get('/', (req, res) => {
     })
 })
 
-router.post('/register', registerUser)
+
+router.post('/register', registerMiddleware, registerUser)
+router.post('/login', loginMiddleware, loginUser)
+router.use((req, res)=> {
+    return res.send({
+        success: false,
+        message: 'Route not found'
+    })
+})
 
 
 export default router

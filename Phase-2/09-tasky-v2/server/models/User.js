@@ -32,10 +32,12 @@ const userSchema = new mongoose.Schema({
 
     tokens: {
         email: {
-            type: String
+            type: String,
+            required: true
         },
         phone: {
-            type: String
+            type: String,
+            required: true
         },
     },
 
