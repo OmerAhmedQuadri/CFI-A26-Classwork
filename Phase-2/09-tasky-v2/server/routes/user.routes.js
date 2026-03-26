@@ -15,6 +15,8 @@ router.get('/', (req, res) => {
 
 router.post('/register', registerMiddleware, registerUser)
 router.post('/login', loginMiddleware, loginUser)
+
+
 router.use((req, res)=> {
     return res.send({
         success: false,

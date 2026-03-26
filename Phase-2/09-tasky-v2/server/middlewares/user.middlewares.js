@@ -49,7 +49,7 @@ export const registerMiddleware = async (req, res, next) => {
         }
 
         const existinguser = await User.findOne({ email: userData.email })
-        console.log(existinguser);
+        // console.log(existinguser);
 
         if (existinguser) {
             return res.send({
