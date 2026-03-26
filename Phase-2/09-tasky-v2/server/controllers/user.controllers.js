@@ -1,6 +1,7 @@
 import User from '../models/User.js'
 import { hashPassword, comparePassword } from '../utils/bcrypt.js'
 import token from '../utils/token.js'
+import { sendEmail } from '../services/email.service.js'
 
 export const registerUser = async (req, res) => {
     try {
@@ -16,6 +17,15 @@ export const registerUser = async (req, res) => {
         }
 
         const user = await User.create(newUser)
+
+        const emailData = {
+            to: newUser.email,
+            subject: 'Tasky verification',
+            // html: `http://localhost:3000/api/auth/verify/email/${user._id}/${user.tokens.email}`
+            html: `<h1>Hello ${user.fullname}</h1>
+            <p>Click <a href="http://localhost:3000/api/auth/verify/email/${user._id}/${user.tokens.email}" target="_blank">here</a> to verify your email.</p>`
+        }
+        await sendEmail(emailData)
         res.send({
             success: true,
             message: 'user created successfully',

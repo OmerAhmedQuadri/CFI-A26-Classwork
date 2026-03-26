@@ -14,20 +14,23 @@ export const verifyEmail = async (req, res) => {
         }
         
         if (user.verified.email) {
-            return res.send({
-                success: false,
-                message: 'Email already verified',
-            })
+            // return res.send({
+            //     success: false,
+            //     message: 'Email already verified',
+            // })
+            res.send(`<h1>Email already verified</h1>`)
         }
         
         user.verified.email = true
         await user.save()
 
-        res.send({
-            success: true,
-            message: 'email verified successfully',
-            data: user
-        })
+        // res.send({
+        //     success: true,
+        //     message: 'email verified successfully',
+        //     data: user
+        // })
+    
+        res.send(`<h1>Email verified successfully</h1>`)
 
     } catch (error) {
         console.log(error);

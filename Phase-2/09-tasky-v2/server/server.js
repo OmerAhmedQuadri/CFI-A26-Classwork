@@ -17,6 +17,7 @@ server.use('/api/auth', authRouter)
 server.use((req, res)=> {
     return res.send({
         success: false,
+        
         message: 'Route not found'
     })
 })
