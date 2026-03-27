@@ -58,6 +58,14 @@ export const registerMiddleware = async (req, res, next) => {
             })
         }
 
+        req.userData = {
+            email: userData.email,
+            phone: userData.phone,
+            fullname: userData.fullname,
+            password: userData.password,
+            role: userData.role,
+        }
+
         next()
 
     } catch (error) {

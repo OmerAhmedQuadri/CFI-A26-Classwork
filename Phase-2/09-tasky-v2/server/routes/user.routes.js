@@ -12,7 +12,6 @@ router.get('/', (req, res) => {
     })
 })
 
-
 router.post('/register', registerMiddleware, registerUser)
 router.post('/login', loginMiddleware, loginUser)
 

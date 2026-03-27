@@ -5,9 +5,12 @@ import { sendEmail } from '../services/email.service.js'
 
 export const registerUser = async (req, res) => {
     try {
-        const newUser = req.body
+        const newUser = req.user
+
+        // hash user password
         newUser.password = await hashPassword(newUser.password)
 
+        // generete verification tokens for email and phone
         const emailToken = token()
         const phoneToken = token()
         
@@ -16,16 +19,20 @@ export const registerUser = async (req, res) => {
             phone: phoneToken
         }
 
+        // save user
         const user = await User.create(newUser)
 
+        // send verification / magic link 
         const emailData = {
             to: newUser.email,
             subject: 'Tasky verification',
-            // html: `http://localhost:3000/api/auth/verify/email/${user._id}/${user.tokens.email}`
-            html: `<h1>Hello ${user.fullname}</h1>
+            html: `<h3>Hello ${user.fullname}</h3>
             <p>Click <a href="http://localhost:3000/api/auth/verify/email/${user._id}/${user.tokens.email}" target="_blank">here</a> to verify your email.</p>`
+            // html: `http://localhost:3000/api/auth/verify/email/${user._id}/${user.tokens.email}`
         }
         await sendEmail(emailData)
+
+        // send success response
         res.send({
             success: true,
             message: 'user created successfully',

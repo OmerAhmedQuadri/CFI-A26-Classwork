@@ -18,7 +18,7 @@ export const verifyEmail = async (req, res) => {
             //     success: false,
             //     message: 'Email already verified',
             // })
-            res.send(`<h1>Email already verified</h1>`)
+            return res.send(`<h1>Email already verified</h1>`)
         }
         
         user.verified.email = true
@@ -41,6 +41,7 @@ export const verifyEmail = async (req, res) => {
         })
     }
 }
+
 export const verifyPhone = async (req, res) => {
     try {
         const phoneToken = req.params.token

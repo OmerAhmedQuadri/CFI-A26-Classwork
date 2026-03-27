@@ -1,5 +1,5 @@
 import express from 'express'
-import { getAllTasks } from '../controllers/task.controllers.js'
+import { createTask, deleteTask, getAllTasks, getTaskById, updatestatus } from '../controllers/task.controllers.js'
 
 
 const router = express.Router()
@@ -8,17 +8,18 @@ const router = express.Router()
 router.get('/', (req, res) => {
     res.send({
         success: true,
-        message: 'user router is working just fine'
+        message: 'task router is working just fine'
     })
 })
 
 
 router.get('/:userId', getAllTasks)
-// router.get('/:id', getTaskById)
+router.get('/:userId/:taskId', getTaskById)
 
-// router.post('/create', createTask)
+router.post('/create', createTask)
 // router.put('/update', updateTask)
-// router.delete('/delete', deleteTask)
+router.put('/updatestatus/:status/:userId/:taskId', updatestatus)
+router.delete('/delete/:userId/:taskId', deleteTask)
 
 
 router.use((req, res)=> {

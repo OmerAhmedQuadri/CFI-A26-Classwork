@@ -4,15 +4,19 @@ import userRouter from './routes/user.routes.js'
 import taskRouter from './routes/task.routes.js'
 import authRouter from './routes/auth.routes.js'
 import './dbConnect.js'
+import cors from 'cors'
+
 dotenv.config()
 
 const server = express()
+server.use(cors())
 const PORT = process.env.PORT
 
 server.use(express.json())
+
 server.use('/api/users', userRouter)
-server.use('/api/tasks', taskRouter)
 server.use('/api/auth', authRouter)
+server.use('/api/tasks', taskRouter)
 
 server.use((req, res)=> {
     return res.send({
