@@ -29,6 +29,13 @@ const userSchema = new mongoose.Schema({
         default: 'user'
     },
 
+    status: {
+        type: String,
+        required: true,
+        enum: ['active', 'disabled', 'banned'],
+        default: 'active'
+    },
+
     tokens: {
         email: {
             type: String,

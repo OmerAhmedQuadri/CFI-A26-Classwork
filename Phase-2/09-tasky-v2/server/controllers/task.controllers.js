@@ -3,8 +3,7 @@ import User from '../models/User.js'
 
 export const createTask = async (req, res) => {
     try {
-        const id = req.body.userId
-        const user = await User.findById(id)
+        const user = req.user
 
         if (!user) {
             return res.send({
@@ -44,8 +43,7 @@ export const createTask = async (req, res) => {
 
 export const getAllTasks = async (req, res) => {
     try {
-        const id = req.params.userId
-        const user = await User.findById(id)
+        const user = req.user
 
         if (!user) {
             return res.send({
@@ -71,10 +69,9 @@ export const getAllTasks = async (req, res) => {
 }
 export const getTaskById = async (req, res) => {
     try {
-        const id = req.params.userId
         const taskId = req.params.taskId
 
-        const user = await User.findById(id)
+        const user = req.user
 
         if (!user) {
             return res.send({
@@ -110,7 +107,6 @@ export const getTaskById = async (req, res) => {
 
 export const updatestatus = async (req, res) => {
     try {
-        const id = req.params.userId
         const taskId = req.params.taskId
         const status = parseInt(req.params.status)
         // console.log(req.params);
@@ -123,7 +119,7 @@ export const updatestatus = async (req, res) => {
             })
         }
 
-        const user = await User.findById(id)
+        const user = req.user
 
         if (!user) {
             return res.send({
@@ -161,10 +157,9 @@ export const updatestatus = async (req, res) => {
 }
 export const deleteTask = async (req, res) => {
     try {
-        const id = req.params.userId
         const taskId = req.params.taskId
 
-        const user = await User.findById(id)
+        const user = req.user
 
         if (!user) {
             return res.send({
