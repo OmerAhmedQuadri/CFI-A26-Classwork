@@ -1,6 +1,6 @@
 node_modules
 .env
-*.json
+
 test
 test.js
 test.mjs
