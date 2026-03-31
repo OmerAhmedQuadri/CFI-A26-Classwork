@@ -4,24 +4,14 @@ import User from '../models/User.js'
 export const createTask = async (req, res) => {
     try {
         const user = req.user
-
         if (!user) {
             return res.send({
                 success: false,
                 message: "User not found"
             })
         }
-        const { taskname, deadline, priority } = req.body
-        if(!taskname || !deadline || !priority || !['high', 'medium', 'low'].includes(priority)){
-            return res.send({
-                success: false,
-                message: 'Incomplete or invalid data'
-            })
-        }
-
-        const newTask = {
-            taskname, deadline, priority
-        }
+        
+        const newTask = req.newTask
         user.tasks.push(newTask)
         await user.save()
 
