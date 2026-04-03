@@ -1,0 +1,34 @@
+body{
+    font-family: 'Montserrat', sans-serif;
+}
+body::selection{
+    background-color: rgb(199, 199, 199);
+}
+#stopwatch {
+    font-size: 100px;
+}
+
+#start-stop-btn, #reset-btn{
+    border: none;
+    width: 120px;
+    height: 50px;
+    margin-inline: 20px;
+    font-size: 25px;
+    border-radius: 5px;
+}
+
+#start-stop-btn{
+    background-color: black;
+    color: white;
+}
+#reset-btn{
+    background-color: rgb(179, 179, 179);
+}
+#start-stop-btn:hover{
+    background-color: rgb(66, 66, 66);
+    /* color: rgb(214, 214, 214); */
+}
+#reset-btn:hover{
+    background-color: rgb(163, 163, 163);
+}
+
