@@ -1,13 +1,14 @@
 const inputBox = document.getElementById('input-box')
 const submitBtn = document.getElementById('add-task-btn')
 const taskListDisplay = document.getElementById('tasks-list')
+
 let tasks = JSON.parse(localStorage.getItem('tasks')) || []
 renderTasks()
 
 submitBtn.addEventListener('click', () => {
     let newTask = {
         taskId: Date.now(),
-        taskname: inputBox.value.trim(),
+        taskname: inputBox.value,
         isCompleted: false
     }
     if (!newTask.taskname) return
@@ -34,8 +35,6 @@ submitBtn.addEventListener('click', () => {
     renderTasks()
     saveTasks()
     inputBox.value = ''
-    inputBox.focus()
-
 })
 
 function saveTasks() {
@@ -44,36 +43,42 @@ function saveTasks() {
 
 function renderTasks() {
     taskListDisplay.innerHTML = ''
-    if(tasks.length == 0){
+    if (tasks.length == 0) {
         taskListDisplay.innerText = 'Tasks not found'
+        inputBox.focus()
         return
     }
-    tasks.forEach(t => {
+    tasks.forEach((t )=> {
         const li = document.createElement('li')
         const task = document.createElement('p')
         const deleteBtn = document.createElement('button')
+
+        task.innerText = t.taskname
+        deleteBtn.innerText = 'Delete'
+        
         li.addEventListener('click', function () {
-            this.classList.toggle('completed')
+
+            li.classList.toggle('completed')
+
             const index = tasks.findIndex((task) => task.taskId == t.taskId)
             tasks[index].isCompleted = !tasks[index].isCompleted
-            console.log(tasks);
+
             saveTasks()
             // renderTasks()
         })
         deleteBtn.addEventListener('click', function () {
             li.remove()
             tasks = tasks.filter(task => task.taskId != t.taskId)
-            console.log(tasks);
+            // console.log(tasks);
             saveTasks()
         })
-        deleteBtn.innerText = 'Delete'
-        task.innerText = t.taskname
 
-        if(t.isCompleted) li.classList.add('completed')
+
+        if (t.isCompleted == true) li.classList.add('completed')
 
         li.append(task, deleteBtn)
         taskListDisplay.append(li)
 
-        inputBox.focus()
     });
+    inputBox.focus()
 }

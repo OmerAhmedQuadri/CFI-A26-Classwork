@@ -18,7 +18,8 @@ body {
     padding: 20px;
     border-radius: 10px;
     width: 400px;
-    height: 400px;
+    height: auto;
+    /* min-height: 200px; */
     text-align: center;
 }
 
@@ -30,7 +31,6 @@ body {
     display: flex;
     padding: 20px;
     justify-content: space-between;
-
 }
 
 #input-box {
@@ -41,6 +41,11 @@ body {
     border-radius: 4px;
     /* padding-inline: 30px; */
     width: 200px;
+}
+#input-box:focus {
+    /* outline: 5px solid black; */
+    outline: 0px;
+    /* border: 1px solid black; */
 }
 
 #add-task-btn {
@@ -58,12 +63,21 @@ body {
 }
 
 
+/* #tasks-container{
+    background-color: rgb(66, 66, 66);
+    min-height: 30px;
+    border-radius: 5px;
+    padding: 10px;
+} */
+
+
 
 li {
+    font-size: 20px;
     display: flex;
     justify-content: space-between;
-    border-radius: 3px;
-    padding: 5px;
+    border-radius: 5px;
+    padding: 10px;
     padding-inline: 20px;
     margin: 5px;
     background-color: rgb(61, 61, 61);
@@ -79,7 +93,7 @@ li button {
     border-radius: 3px;
     background-color: red;
     color: white;
-    padding: 2px;
+    padding: 5px;
     padding-inline: 10px;
 }
 

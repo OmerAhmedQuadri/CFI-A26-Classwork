@@ -1,0 +1,102 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f1f1f1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+#profile-card {
+    background-color: #ffffff;
+    padding: 34px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    min-width: 400px;
+    border: 1px solid #d6d6d6;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    /* align-content: center; */
+    /* display: none; */
+}
+
+#profile-card h3 {
+    font-size: xx-large;
+}
+
+#avatar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+#avatar img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+    align-self: center;
+}
+
+#info {
+    display: flex;
+    flex-direction: column;
+}
+
+#info *{
+    padding: 4px;
+}
+
+#info ul {
+    display: flex;
+    flex-direction: column;
+}
+
+#info ul li {
+    display: flex;
+    padding: 5px;
+    gap: 6px;
+}
+
+li img {
+    width: 20px;
+    height: 20px;
+}
+
+#profile-btn {
+    border: none;
+    background-color: #000000;
+    color: #ffffff;
+    border: 1px solid #000000;
+    border-radius: 5px;
+    padding: 10px;
+    margin-inline: 20px;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: 100ms;
+    font-size: 16px;
+}
+
+
+#profile-btn:hover {
+    background-color: white;
+    color: #000000;
+    border: 1px solid #000000;
+}
+
+#username {
+    padding: 0px;
+}
+
+/* #email-li {
+    visibility: hidden;
+    display: none;
+} */
+
+
