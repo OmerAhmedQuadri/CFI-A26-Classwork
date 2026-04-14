@@ -40,29 +40,70 @@ RestartBtn.addEventListener('click', restartQuiz)
 NextBtn.addEventListener('click', nextQuestion)
 
 function restartQuiz() {
-
+    score = 0
+    currentQuestionIndex = 0
+    // ResultContainer.classList.add('hidden')
+    // QuestionContainer.classList.remove('hidden')
+    NextBtn.textContent = 'Next Question'
+    startQuiz()
 }
 
 function startQuiz() {
+    // hide result container, show question container
+    ResultContainer.classList.add('hidden')
+    StartBtn.classList.add('hidden')
+    QuestionContainer.classList.remove('hidden')
 
+    // render questions
+    showQuestion()
 }
 
 function showQuestion() {
 
+    // QuestionText.textContent = questions[currentQuestionIndex].question
+    QuestionText.textContent = `${currentQuestionIndex + 1}. ${questions[currentQuestionIndex].question}`
+
+    // show options
+    questions[currentQuestionIndex].choice.forEach((opt) => {
+        const li = document.createElement('li')
+        li.textContent = opt
+        li.addEventListener('click', (event) => { selectAnswer(event) })
+        ChoiceList.append(li)
+    })
+
 }
 
 function nextQuestion() {
+    if (thisChoice == questions[currentQuestionIndex].answer) score++
 
+    QuestionText.textContent = ''
+    ChoiceList.innerHTML = ''
+    NextBtn.classList.add('hidden')
+
+    currentQuestionIndex++
+    if (currentQuestionIndex == questions.length - 1) NextBtn.textContent = 'Submit'
+
+    // show question
+    if (currentQuestionIndex == questions.length) return showResult()
+
+    showQuestion()
 }
 
 function selectAnswer(event) {
-
+    clearSelection()
+    event.target.classList.add('selected')
+    NextBtn.classList.remove('hidden')
+    thisChoice = event.target.textContent
 }
 
 function clearSelection() {
-
+    const list = document.querySelectorAll('li')
+    // console.log(list)
+    list.forEach(item => item.classList.remove('selected'))
 }
 
 function showResult() {
-
+    QuestionContainer.classList.add('hidden')
+    ResultContainer.classList.remove('hidden')
+    ScoreDisplay.textContent = `${score} of ${questions.length}`
 }

@@ -1,0 +1,161 @@
+*{
+    padding: 0px;
+    margin: 0px;
+}
+
+
+body{
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    /* height: 95vh; */
+    background-color: #2a2a40;
+    color: #ffffff;
+    font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
+}
+
+.container{
+    display: flex;
+    /* height: auto; */
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+    width: 100%;
+    max-width: 500px;
+    border: 1px solid #ffffff;
+    background-color: #1f1f2e;
+    border-radius: 18px;
+    min-height: 300px;
+    gap: 20px;
+    padding-bottom: 20px;
+}
+
+h1{
+    font-size: 2rem;
+    margin: 20px 0px;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    justify-content: space-around;
+    
+}
+
+.form-row{
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+}
+
+.form-row input, .form-row button{
+    font-size: 14px;
+    padding: 16px;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+    background-color: #343446;
+    color: #ffffff;
+}
+
+.form-row input[type="date"]{
+    flex: 1.5;
+}
+
+.form-row button{
+    background-color: rgb(189, 34, 189);
+}
+
+.form-row button:focus, .form-row button:hover{
+    background-color: rgb(189, 34, 189);
+    outline: oldlace solid 1px;
+    cursor: pointer;
+}
+
+.expense-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 80%;
+    gap: 12px;
+    margin-top: 20px;
+    /* overflow-y: auto; */
+    /* width: 100%; */
+}
+
+ul {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+ul li{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: #343446;
+    padding: 16px;
+    border-radius: 8px;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+ul li:hover{
+    background-color: #3f3f5e;
+}
+
+li button{
+    background-color: red;
+    border: none;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+}
+
+li div{
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+li span{
+    margin-left: auto;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.container h3{
+    font-size: x-large;
+}
+
+
+.hidden{
+    display: none;
+}
+
+#message-box{
+    color: rgb(255, 255, 255);
+    background-color: #ff000075;
+    padding: 12px;
+    border-radius: 8px;
+}
+
+
+
+
+
+
+
+/* adjust scroll bar */
+*::-webkit-scrollbar {
+    width: 8px;
+}*::-webkit-scrollbar-track {
+    background: #1f1f2e;
+}*::-webkit-scrollbar-thumb {
+    background-color: #343446;
+    border-radius: 20px;
+    border: 3px solid #1f1f2e;
+}
