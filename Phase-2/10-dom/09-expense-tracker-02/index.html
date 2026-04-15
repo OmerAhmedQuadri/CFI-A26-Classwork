@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense tracker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="container">
+        <h1>Expense Tracker</h1>
+        <div id="input-container">
+            <form id="expense-form">
+                <div class="form-row">
+                    <input type="text" placeholder="Expense" required name="expensename">
+                    <input type="number" placeholder="Amount" min="1" required name="amount">
+                </div>
+                <div class="form-row">
+                    <input type="date" name="date" required>
+                    <button type="submit">Add expense</button>
+                </div>
+            </form>
+        </div>
+
+        <div id="expense-container">
+            <ul id="expense-list">
+                <li>
+                    <div>
+                        <strong>Book</strong>
+                        <small>15/04/2026</small>
+                    </div>
+                    <span>$49.99</span>
+                    <button>Delete</button>
+                </li>
+                <li>
+                    <div>
+                        <strong>Drinks</strong>
+                        <small>15/04/2026</small>
+                    </div>
+                    <span>$66.99</span>
+                    <button>Delete</button>
+                </li>
+            </ul>
+        </div>
+        <div>
+            <h3>Total: $<span id="total-expense">0.99</span></h3>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

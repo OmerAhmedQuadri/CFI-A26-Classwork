@@ -1,0 +1,107 @@
+*{
+    padding: 0px;
+    margin: 0px;
+}
+
+body{
+    background-color: rgb(42, 42, 64);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#container {
+    border: 1px solid white;
+    background-color: rgb(31, 31, 46);
+    padding: 24px;
+    border-radius: 18px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+}
+
+#input-container form{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-row{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.form-row *{
+    padding: 12px;
+    border-radius: 6px;
+    background-color: rgb(52, 52, 70);
+    border: none;
+    outline: none;
+    color: white;
+    font-size: medium
+}
+.form-row input{
+    flex: 1;
+}
+.form-row input:focus{
+    background-color: rgb(59, 59, 78);
+}
+
+.form-row button{
+    background-color: purple;
+    flex: 0.5;
+}
+.form-row button:hover{
+    background-color: rgb(160, 0, 160);
+}
+
+#expense-container{
+    width: 100%;
+}
+ul{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 6px;
+}
+
+li{
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    background-color: rgb(52, 52, 70);
+    padding: 14px;
+    width: 95%;
+    border-radius: 12px;
+
+}
+li span{
+    margin-left: auto;
+    margin-right: 12px;
+}
+li button{
+    color: white;
+    background-color: rgb(231, 0, 0);
+    border: none;
+    outline: none;
+    padding: 8px;
+    border-radius: 4px;
+}
+li button:hover{
+    background-color: rgb(255, 0, 0);
+}
+
+li div{
+    display: flex;
+    flex-direction: column;
+}
