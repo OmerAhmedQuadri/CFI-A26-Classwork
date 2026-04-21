@@ -35,6 +35,7 @@ export const authMiddleware = async (req, res, next) => {
         })
     }
 }
+
 export const adminAuthMiddleware = async (req, res, next) => {
     try {
         const jwtToken = req.headers['auth-token']

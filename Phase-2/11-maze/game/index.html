@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maze game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="container">
+        <div id="header-container">
+            <h2>Maze Game / Hello <span>Player</span></h2>
+            <div id="controls">
+                <button id="reset-btn">Reset</button>
+                <button onclick="window.location.href = '../'">Go Home</button>
+                <button id="leaderboard-btn">Leaderboard</button>
+                <h3>Score: <span id="score">0</span></h3>
+            </div>
+        </div>
+        <div id="game-container">
+            <table id="game-table">
+                <!-- Game grid will be generated here -->
+            </table>
+        </div>
+        <div id="message-container">
+            <h3 id="message-box"></h3>
+        </div>
+        
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
