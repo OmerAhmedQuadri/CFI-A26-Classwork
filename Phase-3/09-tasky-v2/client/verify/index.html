@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tasky</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.8.0/axios.min.js"
+        integrity="sha512-Rjx/Bee5UEvuxMc3Au6ShLf08nh+v4q3sNCI/+pSzypORWeVZG5jRZBKxM6RlA7L4hbHykwFXhmlBu/cJBaDRg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+
+<body class="flex flex-col min-h-screen items-center justify-center">
+
+    <div id="primary-container"
+        class="flex flex-col items-center justify-center p-8 px-12 gap-4 border border-gray-700 rounded-lg shadow-lg shadow-gray-300 bg-white">
+        
+        <h1 class="text-2xl font-bold text-center">Please verify yourself</h1>
+        <div class="px-10 border border-red-500 rounded bg-red-300 text-center text-red-700 hidden" id="error-container">
+            <p id="error-message">Something went wrong</p>
+        </div>
+        
+        <p class="">You are almost there, click the button below to verify yourself.</p>
+        <button id="verify-btn"
+            class="px-2 bg-black text-white rounded border border-black hover:bg-white hover:text-black transition duration-200">Verify</button>
+    </div>
+    <div id="secondary-container"
+        class="flex flex-col items-center justify-center p-8 px-12 gap-4 border border-gray-700 rounded-lg shadow-lg shadow-gray-300 bg-white hidden">
+
+        <h1 class="text-2xl font-bold text-center">Verified successfully</h1>
+        <p class="">You are all set! Your email has been verified.</p>
+        <button id="visit-btn"
+            class="px-2 bg-black text-white rounded border border-black hover:bg-white hover:text-black transition duration-200">Login
+            now</button>
+    </div>
+
+
+    <script src="script.js"></script>
+</body>
+
+</html>

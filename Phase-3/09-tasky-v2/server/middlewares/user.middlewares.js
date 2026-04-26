@@ -40,6 +40,7 @@ export const validateUserRegistrationData = (userData) => {
 export const registerMiddleware = async (req, res, next) => {
     try {
         const userData = req.body
+        userData.role = 'user'
         const errors = validateUserRegistrationData(userData)
         if (errors.length != 0) {
             return res.status(400).send({
@@ -80,33 +81,42 @@ export const registerMiddleware = async (req, res, next) => {
 }
 export const loginMiddleware = async (req, res, next) => {
     try {
-
-        const { email, password } = req.body
+        // console.log(req.body);
+        const { email, password = null } = req.body
         if (!email || !password) {
-            return res.send({
+            return res.status(400).send({
                 success: false,
                 message: 'valid email and password is required to login'
             })
         }
 
+        // console.log(email, password);
         const user = await User.findOne({ email: email })
+
+        if (!user) {
+            return res.status(401).send({
+                success: false,
+                message: 'Invalid credentials'
+            })
+        }
+
         const validatePassword = await comparePassword(password, user.password)
-        // console.log(user);
-        if (!user || !validatePassword) {
-            return res.send({
+
+        if (!validatePassword) {
+            return res.status(401).send({
                 success: false,
                 message: 'Invalid credentials'
             })
         }
 
         if(!user.verified.email){
-            return res.send({
+            return res.status(401).send({
                 success: false,
                 message: 'Please verify your email before login',
             })
         }
         if(!user.verified.phone){
-            return res.send({
+            return res.status(401).send({
                 success: false,
                 message: 'Please verify your phone before login',
             })

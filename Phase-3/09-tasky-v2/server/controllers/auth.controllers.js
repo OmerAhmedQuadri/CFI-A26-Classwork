@@ -2,10 +2,10 @@ import User from '../models/User.js'
 
 export const verifyEmail = async (req, res) => {
     try {
-        const userId = req.params.userId
+        const email = req.params.email
         const emailToken = req.params.token
-        const user = await User.findById(userId)
-
+        const user = await User.findOne({email})
+        
         if (!user || user.tokens.email != emailToken) {
             return res.send({
                 success: false,
@@ -14,23 +14,23 @@ export const verifyEmail = async (req, res) => {
         }
         
         if (user.verified.email) {
-            // return res.send({
-            //     success: false,
-            //     message: 'Email already verified',
-            // })
-            return res.send(`<h1>Email already verified</h1>`)
+            return res.status(409).send({
+                success: false,
+                message: 'Email already verified',
+            })
+            // return res.send(`<h1>Email already verified</h1>`)
         }
         
         user.verified.email = true
         await user.save()
 
-        // res.send({
-        //     success: true,
-        //     message: 'email verified successfully',
-        //     data: user
-        // })
+        res.send({
+            success: true,
+            message: 'Email verified successfully',
+            data: user
+        })
     
-        res.send(`<h1>Email verified successfully</h1>`)
+        // res.send(`<h1>Email verified successfully</h1>`)
 
     } catch (error) {
         console.log(error);

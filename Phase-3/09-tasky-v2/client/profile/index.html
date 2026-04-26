@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tasky</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.8.0/axios.min.js"
+        integrity="sha512-Rjx/Bee5UEvuxMc3Au6ShLf08nh+v4q3sNCI/+pSzypORWeVZG5jRZBKxM6RlA7L4hbHykwFXhmlBu/cJBaDRg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+    <nav class="flex justify-between items-center bg-black text-white p-4">
+        <div class="container mx-auto">
+            <h1 class="text-xl font-bold">Tasky</h1>
+        </div>
+        <div class="container mx-auto flex justify-end">
+            <!-- add profile btn -->
+                <button id="logout-btn" class="bg-red-800 hover:bg-red-500 text-white font-bold py-2 px-4 rounded">
+                    Logout
+                </button>
+        </div>
+    </nav>
+
+    <div class="flex flex-col items-start min-h-screen bg-white">
+        <div id="container" class="min-w-[400px] p-8 px-12">
+            <h1 class="text-2xl font-bold mb-6">Profile</h1>
+            <div class="mb-4">
+                <label for="name" class="block text-gray-700 font-bold mb-2">Name:</label>
+                <input type="text" id="name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" disabled>
+            </div>
+        </div>
+    </div>
+    
+
+    <script src="script.js"></script>
+</body>
+</html>
