@@ -7,12 +7,12 @@ import { createTaskMiddleware } from '../middlewares/task.middlewares.js'
 const router = express.Router()
 
 
-router.get('/', (req, res) => {
-    res.send({
-        success: true,
-        message: 'task router is working just fine'
-    })
-})
+// router.get('/', (req, res) => {
+//     res.send({
+//         success: true,
+//         message: 'task router is working just fine'
+//     })
+// })
 
 router.use(authMiddleware)
 

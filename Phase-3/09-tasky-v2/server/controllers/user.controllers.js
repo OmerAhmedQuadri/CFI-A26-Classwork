@@ -27,10 +27,10 @@ export const registerUser = async (req, res) => {
         let verificationLink
         if(process.env.ENV == 'development') {
             console.log('development');
-            verificationLink = `http://localhost:5200/client/verify/?user=${user.email}&verify=email&token=${user.tokens.email}`
+            verificationLink = `http://localhost:5200/client/verify/?user=${user._id}&verify=email&token=${user.tokens.email}`
         } else {
             console.log('production');
-            verificationLink = `http://localhost:5200/verify/?user=${user.email}&verify=email&token=${user.tokens.email}`
+            verificationLink = `http://localhost:5200/verify/?user=${user._id}&verify=email&token=${user.tokens.email}`
         }
         const emailData = {
             to: user.email,
@@ -93,19 +93,11 @@ export const loginUser = async (req, res) => {
 export const getUserProfile = async (req, res) => {
     try {
         const user = req.user
-        // const { tasks, tokens, verified, password, ...profile } = user
-        const profile = {
-            id: user._id,
-            fullname: user.fullname,
-            email: user.email,
-            phone: user.phone,
-            role: user.role,
-        }
 
         res.send({
             success: true,
             message: 'user profile fetched successfully',
-            data: profile
+            data: user
         })
 
     } catch (error) {

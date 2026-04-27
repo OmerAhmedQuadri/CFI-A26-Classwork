@@ -2,9 +2,10 @@ import User from '../models/User.js'
 
 export const verifyEmail = async (req, res) => {
     try {
-        const email = req.params.email
+        // const email = req.params.email
+        const userId = req.params.userId
         const emailToken = req.params.token
-        const user = await User.findOne({email})
+        const user = await User.findById(userId)
         
         if (!user || user.tokens.email != emailToken) {
             return res.send({

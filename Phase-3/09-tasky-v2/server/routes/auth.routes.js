@@ -9,8 +9,8 @@ router.get('/', (req, res) => {
     })
 })
 
-router.get('/verify/email/:email/:token', verifyEmail)
-router.get('/verify/phone/:phone/:token', verifyPhone)
+router.get('/verify/email/:userId/:token', verifyEmail)
+router.get('/verify/phone/:userId/:token', verifyPhone)
 
 router.use((req, res)=> {
     return res.send({

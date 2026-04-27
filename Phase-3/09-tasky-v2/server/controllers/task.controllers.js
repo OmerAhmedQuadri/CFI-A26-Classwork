@@ -1,10 +1,13 @@
 import User from '../models/User.js'
+import { getUserTasksById } from '../services/task.service.js'
 
 
 export const createTask = async (req, res) => {
     try {
         const user = req.user
-        if (!user) {
+        const userTasks = await getUserTasksById(user._id)
+
+        if (!user || !userTasks) {
             return res.send({
                 success: false,
                 message: "User not found"
@@ -12,13 +15,13 @@ export const createTask = async (req, res) => {
         }
         
         const newTask = req.newTask
-        user.tasks.push(newTask)
-        await user.save()
+        userTasks.tasks.push(newTask)
+        await userTasks.save()
 
         res.send({
             success: true,
             message: 'Task created successfully',
-            data: user.tasks
+            data: newTask
         })
 
     } catch (error) {
@@ -34,8 +37,9 @@ export const createTask = async (req, res) => {
 export const getAllTasks = async (req, res) => {
     try {
         const user = req.user
+        const userTasks = await getUserTasksById(user._id)
 
-        if (!user) {
+        if (!user || !userTasks) {
             return res.send({
                 success: false,
                 message: "User not found"
@@ -45,7 +49,7 @@ export const getAllTasks = async (req, res) => {
         res.send({
             success: true,
             message: "Tasks fetch successfully",
-            data: user.tasks || []
+            data: userTasks.tasks || []
         })
 
     } catch (error) {
@@ -150,6 +154,7 @@ export const deleteTask = async (req, res) => {
         const taskId = req.params.taskId
 
         const user = req.user
+        const userTasks = await getUserTasksById(user._id)
 
         if (!user) {
             return res.send({
@@ -158,7 +163,7 @@ export const deleteTask = async (req, res) => {
             })
         }
 
-        const taskIndex = user.tasks.findIndex((task) => task._id == taskId)
+        const taskIndex = userTasks.tasks.findIndex((task) => task._id == taskId)
 
         if(taskIndex == -1) {
             return res.send({
@@ -166,8 +171,8 @@ export const deleteTask = async (req, res) => {
                 message: 'Task not found'
             })
         }
-        const task = user.tasks.splice(taskIndex, 1)
-        await user.save()
+        const task = userTasks.tasks.splice(taskIndex, 1)
+        await userTasks.save()
 
         res.send({
             success: true,

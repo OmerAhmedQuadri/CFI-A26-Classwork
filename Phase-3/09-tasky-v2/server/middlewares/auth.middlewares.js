@@ -2,6 +2,7 @@ import User from '../models/User.js'
 import Admin from '../models/Admin.js'
 import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv'
+import { getUserById } from '../services/user.service.js'
 dotenv.config()
 
 export const authMiddleware = async (req, res, next) => {
@@ -9,9 +10,9 @@ export const authMiddleware = async (req, res, next) => {
         const jwtToken = req.headers['auth-token']
         // console.log(jwtToken);
         const decoded = jwt.verify(jwtToken, process.env.secret)
-        console.log(decoded)
+        // console.log(decoded)
         const userId = decoded.data.id
-        const user = await User.findById(userId)
+        const user = await getUserById(userId)
         if(!user || user.status != 'active') {
             return res.send({
                 success: false,

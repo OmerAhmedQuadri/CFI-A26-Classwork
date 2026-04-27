@@ -1,4 +1,6 @@
-localStorage.removeItem('token')
+// if (localStorage.getItem('token')) window.location.href = '../home'
+localStorage.getItem('token') && (window.location.href = '../home')
+
 document.addEventListener('DOMContentLoaded', () => {
 
     const loginForm = document.getElementById('loginForm')
