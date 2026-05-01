@@ -109,13 +109,13 @@ export const loginMiddleware = async (req, res, next) => {
             })
         }
 
-        if(!user.verified.email){
+        if (!user.verified.email) {
             return res.status(401).send({
                 success: false,
                 message: 'Please verify your email before login',
             })
         }
-        if(!user.verified.phone){
+        if (!user.verified.phone) {
             return res.status(401).send({
                 success: false,
                 message: 'Please verify your phone before login',
@@ -135,3 +135,34 @@ export const loginMiddleware = async (req, res, next) => {
     }
 }
 
+export const updateProfileMiddleware = async (req, res, next) => {
+    try {
+        req.body = req.body || {}
+
+        const user = req.user
+        const { phone, fullname } = req.body
+
+        if(!phone && !fullname) {
+            return res.status(400).send({
+                success: false,
+                message: 'valid phone and fullname is required to update profile'
+            })
+        }
+
+        req.updatedUser = {
+            phone,
+            fullname
+        }
+        
+        next()
+        
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({
+            success: false,
+            message: 'Internal server error from middleware',
+            error: error
+        })
+    }
+}

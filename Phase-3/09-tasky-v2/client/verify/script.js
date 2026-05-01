@@ -4,11 +4,11 @@ const verify = params.get('verify') // email or phone
 const token = params.get('token')
 
 if (!email || !verify || !token || !['email', 'phone'].includes(verify)) {
-    window.location.href = '../'
+    window.location.href = '/'
 }
 
 const app = axios.create({
-    baseURL: 'http://localhost:3000',
+    baseURL: '/api/auth',
     validateStatus: (status) => status < 500
 })
 
@@ -20,14 +20,14 @@ const verifyBtn = document.getElementById('verify-btn')
 const visitBtn = document.getElementById('visit-btn')
 
 visitBtn.addEventListener('click', () => {
-    window.location.href = '../login'
+    window.location.href = '/login'
 })
 
 verifyBtn.addEventListener('click', verifyHandler)
 
 async function verifyHandler () {
     try {
-        const response = await app.get(`/api/auth/verify/${verify}/${email}/${token}`)
+        const response = await app.get(`/verify/${verify}/${email}/${token}`)
         console.log(response.data);
         if (!response.data.success) {
             errorContainer.classList.remove('hidden')
@@ -36,7 +36,7 @@ async function verifyHandler () {
                 verifyBtn.textContent = 'Login now'
                 verifyBtn.removeEventListener('click', verifyHandler)
                 verifyBtn.addEventListener('click', () => {
-                    window.location.href = '../login'
+                    window.location.href = '/login'
                 })
             }
             return

@@ -1,6 +1,6 @@
 import express from 'express'
-import { getUserProfile, loginUser, registerUser } from '../controllers/user.controllers.js'
-import { loginMiddleware, registerMiddleware } from '../middlewares/user.middlewares.js'
+import { getUserProfile, loginUser, registerUser, updateUserProfile } from '../controllers/user.controllers.js'
+import { loginMiddleware, registerMiddleware, updateProfileMiddleware } from '../middlewares/user.middlewares.js'
 import { authMiddleware } from '../middlewares/auth.middlewares.js'
 
 const router = express.Router()
@@ -17,10 +17,11 @@ router.post('/login', loginMiddleware, loginUser)
 
 router.use(authMiddleware) // all routes after this line are protected routes
 router.get('/profile', getUserProfile)
+router.put('/profile', updateProfileMiddleware, updateUserProfile)
 
 
 router.use((req, res)=> {
-    return res.send({
+    return res.status(404).send({
         success: false,
         message: 'Route not found'
     })

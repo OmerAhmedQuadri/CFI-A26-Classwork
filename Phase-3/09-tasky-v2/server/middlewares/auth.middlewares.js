@@ -13,6 +13,8 @@ export const authMiddleware = async (req, res, next) => {
         // console.log(decoded)
         const userId = decoded.data.id
         const user = await getUserById(userId)
+        // console.log(user);
+
         if(!user || user.status != 'active') {
             return res.send({
                 success: false,

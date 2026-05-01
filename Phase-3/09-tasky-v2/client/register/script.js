@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     console.log(errorMessage);
     const app = axios.create({
-        baseURL: 'http://localhost:3000',
+        baseURL: '/api/users',
         validateStatus: (status) => status < 500
     })
     registerForm.addEventListener('submit', submitHandler)
@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         try {
             errorContainer.classList.add('hidden')
-            const res = await app.post('/api/users/register', {
+            const res = await app.post('/register', {
                 fullname: data.fullname,
                 phone: data.phone,
                 email: data.email,
@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.log(res.data);
                 return
             }
-            window.location.href = '../login'
+            window.location.href = '/login'
         } catch (error) {
             errorContainer.classList.remove('hidden')
             errorMessage.textContent = error.message

@@ -114,6 +114,7 @@ export const updatestatus = async (req, res) => {
         }
 
         const user = req.user
+        const userTasks = await getUserTasksById(user._id)
 
         if (!user) {
             return res.send({
@@ -122,7 +123,7 @@ export const updatestatus = async (req, res) => {
             })
         }
 
-        const taskIndex = user.tasks.findIndex((task) => task._id == taskId)
+        const taskIndex = userTasks.tasks.findIndex((task) => task._id == taskId)
 
         if(taskIndex == -1) {
             return res.send({
@@ -131,13 +132,13 @@ export const updatestatus = async (req, res) => {
             })
         }
 
-        user.tasks[taskIndex].isComplete = !!status
-        await user.save()
+        userTasks.tasks[taskIndex].isComplete = !!status
+        await userTasks.save()
 
         res.send({
             success: true,
             message: "Task status updated successfully",
-            data: user.tasks[taskIndex]
+            data: userTasks.tasks[taskIndex]
         })
 
     } catch (error) {

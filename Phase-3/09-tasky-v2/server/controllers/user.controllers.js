@@ -14,7 +14,7 @@ export const registerUser = async (req, res) => {
         // generete verification tokens for email and phone
         const emailToken = generateToken()
         const phoneToken = generateToken()
-        
+
         newUser.tokens = {
             email: emailToken,
             phone: phoneToken
@@ -25,7 +25,7 @@ export const registerUser = async (req, res) => {
 
         // send verification / magic link 
         let verificationLink
-        if(process.env.ENV == 'development') {
+        if (process.env.ENV == 'development') {
             console.log('development');
             verificationLink = `http://localhost:5200/client/verify/?user=${user._id}&verify=email&token=${user.tokens.email}`
         } else {
@@ -37,7 +37,7 @@ export const registerUser = async (req, res) => {
             subject: 'Tasky verification',
             html: `<h3>Hello ${user.fullname}</h3>
             <p>Click <a href="${verificationLink}" target="_blank">here</a> to verify your email.</p>`
-            
+
             // <p>Click <a href="http://localhost:3000/api/auth/verify/email/${user._id}/${user.tokens.email}" target="_blank">here</a> to verify your email.</p>
             // html: `http://localhost:3000/api/auth/verify/email/${user._id}/${user.tokens.email}`
         }
@@ -108,4 +108,36 @@ export const getUserProfile = async (req, res) => {
             error: error
         })
     }
+}
+
+export const updateUserProfile = async (req, res) => {
+    try {
+        const user = req.user
+
+        const { phone, fullname } = req.updatedUser
+        // console.log(updatedUser);
+        // console.log(user);
+        console.log(phone, fullname);
+
+        phone && (user.phone = phone)
+        fullname && (user.fullname = fullname)
+
+        await user.save()
+        console.log(user);
+
+        res.send({
+            success: true,
+            message: 'user profile updated successfully',
+            data: user
+        })
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({
+            success: false,
+            message: 'Internal server error',
+            error: error
+        })
+    }
+
 }

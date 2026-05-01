@@ -58,6 +58,21 @@ const userSchema = new mongoose.Schema({
         },
     },
 
+    requestedEmail: {
+        email: {
+            type: String,
+            default: null
+        },
+        otp: {
+            type: Number,
+            default: null
+        },
+        deadline: {
+            type: String,
+            default: null
+        }
+    },
+
     tasks: [
         {
             taskname: {

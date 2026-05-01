@@ -1,5 +1,8 @@
-import express from 'express'
-import { verifyEmail, verifyPhone } from '../controllers/auth.controllers.js'
+import express, { request } from 'express'
+import { verifyEmail, verifyPhone, requestEmailUpdate } from '../controllers/auth.controllers.js'
+import { authMiddleware } from '../middlewares/auth.middlewares.js'
+import { updateEmail } from '../controllers/auth.controllers.js'
+
 const router = express.Router()
 
 router.get('/', (req, res) => {
@@ -11,6 +14,8 @@ router.get('/', (req, res) => {
 
 router.get('/verify/email/:userId/:token', verifyEmail)
 router.get('/verify/phone/:userId/:token', verifyPhone)
+router.post('/request/update/email/', authMiddleware, requestEmailUpdate)
+router.post('/update/email/', authMiddleware, updateEmail)
 
 router.use((req, res)=> {
     return res.send({

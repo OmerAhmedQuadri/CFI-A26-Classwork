@@ -1,5 +1,5 @@
 
-const token = localStorage.getItem("token") || window.location.replace("../login");
+const token = localStorage.getItem("token") || window.location.replace("/login");
 
 const tasksTable = document.getElementById("tasks-table");
 const selectBtn = document.getElementById("select-btn");
@@ -10,7 +10,17 @@ const cancelTaskBtn = document.getElementById("cancel-task-btn");
 const submitTaskBtn = document.getElementById("submit-task-btn");
 const deleteSelectionBtn = document.getElementById("delete-selection-btn");
 const markCompletedBtn = document.getElementById("mark-completed-btn");
+const title = document.getElementById('title')
+const messageBox = document.getElementById('message-box')
+// // console.log(title);
+// title.addEventListener('click', () => {
+//     console.log('title clicked')
+//     // window.location.href = '/home'
+// });
+console.log('home page');
 
+
+markCompletedBtn.addEventListener("click", markSelectedTasksAsCompleted);
 deleteSelectionBtn.addEventListener("click", deleteSelectedTasks);
 submitTaskBtn.addEventListener("click", saveNewTask);
 tasksTable.addEventListener("click", selectTasks)
@@ -39,7 +49,7 @@ let tasks = [];
 let allowSelection = false;
 
 const app = axios.create({
-    baseURL: "http://localhost:3000/api/tasks",
+    baseURL: "/api/tasks",
     headers: {
         'auth-token': token,
     },
@@ -50,6 +60,8 @@ fetchTasks();
 
 async function fetchTasks() {
     try {
+
+        document.getElementById('loading').classList.remove("hidden")
         const response = await app.get("/");
         if (!response.data.success) {
             // console.log(response);
@@ -65,6 +77,7 @@ async function fetchTasks() {
 function renderTasks(tasks) {
     // console.log(tasks);
     tasksTable.innerHTML = "";
+    document.getElementById('loading').classList.add("hidden")
     tasks.forEach((task, index) => {
         const row = document.createElement("tr");
         row.id = task._id;
@@ -87,8 +100,8 @@ function addTask() {
     console.log('add task');
 
     const row = document.createElement("tr");;
-    const maxDate = new Date(Date.now() + 1000 * 60 * 60 * 24 * 5).toISOString();
-    console.log('2026-05-15T23:59');
+    const maxDate = new Date(Date.now() + 1000 * 60 * 60 * 24 * 5).toISOString().slice(0, 16);
+    // console.log('2026-05-15T23:59');
     console.log(maxDate);
     row.innerHTML = `
             <th class="border border-black text-start px-4 py-2">${tasks.length + 1}</th>
@@ -111,7 +124,8 @@ function addTask() {
     });
 }
 
-async function saveNewTask() {
+async function saveNewTask(e) {
+    e.preventDefault();
     const newTaskRow = tasksTable.lastChild;
     // console.log(newTaskRow);
     const taskname = newTaskRow.children[1].children[0].value;
@@ -122,20 +136,23 @@ async function saveNewTask() {
     try {
         const response = await app.post("/create", { taskname, priority, deadline, });
         if (!response.data.success) {
+            displayMessage(response.data.message, 'error')
             throw new Error(response.data.message);
         }
         addTaskActions.classList.add("hidden");
         // addTaskForm.classList.add("hidden");
         newTaskRow.remove();
         fetchTasks();
-
+        displayMessage(response.data.message, 'success');
 
     } catch (error) {
+        displayMessage(error.message, 'error')
         console.error(error);
     }
 }
 
 function selectTasks(e) {
+    e.preventDefault();
     if (!allowSelection) return;
     const row = e.target.closest("tr");
     if (!row) return;
@@ -152,30 +169,96 @@ function selectTasks(e) {
     console.log(selectedTasks);
 }
 
-async function deleteSelectedTasks() {
+async function deleteSelectedTasks(e) {
+    allowSelection = false
+    e.preventDefault();
     console.log("deleting", selectedTasks);
+    displayMessage('deleting...')
     selectedTasks.forEach(async (taskId, index) => {
-        const interval = setInterval(async () => {
+        const interval = setTimeout(async () => {
             try {
-                console.log(taskId);
+                // console.log(taskId);
                 const response = await app.delete(`/delete/${taskId}`);
                 if (!response.data.success) {
                     console.log('error found: ');
                     console.log(response.data);
                     throw new Error(response.data.message);
+                    displayMessage(response.data.message, 'error')
                 }
-                selectedTasks.shift()
-                console.log(response.data);
+                else {
+                    displayMessage(response.data.message, 'success')
+                }
+                // selectedTasks.shift()
+                // console.log(response.data);
                 // await fetchTasks();
             } catch (error) {
+                displayMessage(error.message, 'error')
                 console.error(error);
             }
-            if (selectTasks.length == 1) {
-                console.log('clear interval');
-                clearInterval(interval);
-            }
-        }, 500);
+        }, index * 500);
     });
-    await fetchTasks();
-    selectedTasks.length = 0;
+    setTimeout(async() => {
+        await fetchTasks();
+        allowSelection = true
+        selectBtn.click()
+        selectedTasks.length = 0;
+    }, (selectedTasks.length+1) * 500);
+
 }
+async function markSelectedTasksAsCompleted(e) {
+    allowSelection = false
+    e.preventDefault();
+    console.log("marking", selectedTasks);
+    displayMessage('Marking tasks as completed', 'success')
+    selectedTasks.forEach(async (taskId, index) => {
+        const interval = setTimeout(async () => {
+            try {
+                // console.log(taskId);
+                const response = await app.put(`/update-status/1/${taskId}`);
+                if (!response.data.success) {
+                    console.log('error found: ');
+                    console.log(response.data);
+                    throw new Error(response.data.message);
+                    displayMessage(response.data.message, 'error')
+                }
+                else {
+                    displayMessage(response.data.message, 'success')
+                }
+                // selectedTasks.shift()
+                // console.log(response.data);
+                // await fetchTasks();
+            } catch (error) {
+                displayMessage(error.message, 'error')
+                console.error(error);
+            }
+        }, index * 500);
+    });
+    setTimeout(async() => {
+        await fetchTasks();
+        allowSelection = true
+        selectBtn.click()
+        selectedTasks.length = 0;
+    }, (selectedTasks.length+1) * 500);
+
+}
+
+
+
+function displayMessage(message, type = 'success') {
+    if (type === 'success') {
+        messageBox.classList.remove('bg-red-300', 'text-red-700')
+        messageBox.classList.add('bg-green-300', 'text-green-800')
+    } else {
+        messageBox.classList.remove('bg-green-300', 'text-green-800')
+        messageBox.classList.add('bg-red-300', 'text-red-700')
+    }
+    messageBox.textContent = message
+    messageBox.classList.remove('hidden')
+    setTimeout(() => {
+        messageBox.classList.add('hidden')
+    }, 3000);
+}
+
+
+
+/* HTML: <div class="loader"></div> */

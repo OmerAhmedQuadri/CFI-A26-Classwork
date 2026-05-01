@@ -1,5 +1,5 @@
-// if (localStorage.getItem('token')) window.location.href = '../home'
-localStorage.getItem('token') && (window.location.href = '../home')
+// if (localStorage.getItem('token')) window.location.href = '/home'
+localStorage.getItem('token') && (window.location.href = '/home')
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const errorMessage = document.getElementById('error-message')
     console.log(errorMessage);
     const app = axios.create({
-        baseURL: 'http://localhost:3000',
+        baseURL: '/api/users',
         validateStatus: (status) => status < 500
     })
     loginForm.addEventListener('submit', submitHandler)
@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // console.log(data);
         
         try {
-            const response = await app.post('/api/users/login', { email: data.email, password: data.password })
+            const response = await app.post('/login', { email: data.email, password: data.password })
 
             if (!response.data.success) {
                 errorContainer.classList.remove('hidden')
@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
             errorContainer.classList.add('hidden')
             const token = response.data.data.token
             localStorage.setItem('token', token)
-            window.location.href = '../home'
+            window.location.href = '/home'
 
         } catch (error) {
             errorContainer.classList.remove('hidden')
