@@ -1,23 +1,49 @@
 import User from '../models/user.model.js'
-import { generateOtp } from '../utils/otp.utils.js'
-import { hashPassword } from '../utils/bcrypt.utils.js'
+import { comparePassword, hashPassword } from '../utils/bcrypt.utils.js'
 
-export const createUser = async ({ fullname, email, password }) => {
-    password = await hashPassword(password, 10)
-    const user = new User({ fullname, email, password })
-    user.authTokens.userRegisteration.otp = generateOtp()
-    user.authTokens.userRegisteration.expires = new Date(Date.now() + 1 * 60 * 1000).toISOString()
-    await user.save()
-    return user
+
+export const validatePassword = async (userId, password) => {
+    const user = await User.findById(userId)
+    const isValid = await comparePassword(password, user.password)
+    return isValid
 }
 
-
-export const findUserByEmail = async (email) => {
+export const verifyRegisterOtp = async (email, otp) => {
     const user = await User.findOne({ email })
-    return user
+
+    if (user && user.status == 'pending') {
+        if (user.authTokens.userRegisteration.otp == otp) {
+            const expiry = new Date(user.authTokens.userRegisteration.expires)
+            if (expiry.getTime() < Date.now()) {
+                return {
+                    success: false,
+                    message: 'OTP expired'
+                }
+            }
+            user.status = 'active'
+            user.authTokens.userRegisteration.otp = 'null'
+            user.authTokens.userRegisteration.expires = 'null'
+            await user.save()
+            return {
+                success: true,
+                message: 'User verified successfully, you can login now'
+            }
+        } else {
+            return {
+                success: false,
+                message: 'Invalid OTP'
+            }
+        }
+    } else if (user) {
+        return {
+            success: false,
+            message: 'User already verified'
+        }
+    } else {
+        return {
+            success: false,
+            message: 'User not found'
+        }
+    }
 }
 
-export const findUserByEmailAndDelete = async (email) => {
-    const user = await User.findOneAndDelete({ email })
-    return user
-}
