@@ -1,15 +1,22 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useEffect, useState } from "react";
+// import './App.css';
 
 const App = () => {
   const [task, setTask] = useState("");
   const [taskList, setTaskList] = useState(
     JSON.parse(localStorage.getItem("tasks")) || [],
   );
-  console.log(taskList);
+  const inputRef = useRef(null)
+  // console.log(inputRef.current);
+
   useEffect(() => {
     localStorage.setItem("tasks", JSON.stringify(taskList));
   }, [taskList]);
+
+  useEffect(() => {
+    inputRef.current?.focus()
+  }, [taskList])
 
   const addTaskHandler = () => {
     if (task.trim() !== "") {
@@ -48,6 +55,7 @@ const App = () => {
         <div className="flex gap-3">
           <input
             type="text"
+            ref={inputRef}
             className="border-2 border-gray-900 p-4 w-full rounded-lg font-bold bg-slate-600 text-white "
             placeholder="Enter your task here"
             onChange={(e) => setTask(e.target.value)}
@@ -62,7 +70,7 @@ const App = () => {
         <ul className="flex flex-col w-full border-2 border-gray-900 rounded-lg gap-2 max-h-70 h-full " >
           {taskList.map((task, index) => (
             <li 
-              className={`p-3 bg-slate-600 rounded-lg flex flex-row justify-between ${task.isDone ? 'opacity-80' : ''}`}
+              className={`group p-3 bg-slate-600 rounded-lg flex flex-row justify-between ${task.isDone ? 'opacity-80' : ''}`}
               key={task.id}
               onClick={(e) => statusHandler(e, index)}
             >
@@ -70,7 +78,7 @@ const App = () => {
                 className={`${task.isDone && 'line-through' }`}
                >{task.title}</p>
               <button 
-                className="bg-red-500 px-2 rounded"
+                className="bg-red-500 px-2 rounded hidden group-hover:block"
                 onClick={() => deleteTaskHandler(index)}
               >Delete</button>
             </li>

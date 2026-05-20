@@ -1,0 +1,10 @@
+.li button{
+    /* opacity: 0; */
+    display: none;
+    cursor: pointer;
+}
+
+.li:hover button{
+    /* opacity: 1; */
+    display: block;
+}

@@ -63,18 +63,65 @@ class Tree {
         }
         return false;
     }
+
+    dfsInorder() {
+        const result = [];
+        function traverse(node){
+            if(node == null) return
+
+            traverse(node.left)
+            result.push(node.value)
+            traverse(node.right)
+
+        }
+        traverse(this.root)
+        return result
+    }
+    dfsPreorder() {
+        const result = [];
+        function traverse(node){
+            if(node == null) return
+
+            result.push(node.value)
+            traverse(node.left)
+            traverse(node.right)
+
+        }
+        traverse(this.root)
+        return result
+    }
+    dfsPostorder() {
+        const result = [];
+        function traverse(node){
+            if(node == null) return
+
+            traverse(node.left)
+            traverse(node.right)
+            result.push(node.value)
+
+        }
+        traverse(this.root)
+        return result
+    }
+
+
 }
 
 
 const tree = new Tree()
-console.log(tree);
-tree.insert(10);
-console.log(tree);
+// console.log(tree);
+tree.insert(25);
+// console.log(tree);
 tree.insert(12);
+// console.log(tree);
+tree.insert(32);
+// console.log(tree);
+tree.insert(30);
+// console.log(tree);
+tree.insert(31)
+// console.log(tree.search(24));
+// console.log(tree.search(14));
 console.log(tree);
-tree.insert(13);
-console.log(tree);
-tree.insert(14);
-console.log(tree);
-console.log(tree.search(24));
-console.log(tree.search(14));
+console.log(tree.dfsInorder());
+console.log(tree.dfsPreorder());
+console.log(tree.dfsPostorder());
