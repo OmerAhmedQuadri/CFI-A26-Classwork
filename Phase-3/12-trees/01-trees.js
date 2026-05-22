@@ -1,3 +1,7 @@
+// binary search tree
+// depth first search algorithm
+// breadth first search algorithm
+
 class Node {
     constructor(value) {
         this.left = null;
@@ -104,6 +108,23 @@ class Tree {
         return result
     }
 
+    bfs() {
+        const result = []
+        const queue = []
+        if(this.root != null) queue.push(this.root)
+        let index = 0
+
+        while (index < queue.length) {
+            const node = queue[index]
+            result.push(node.value)
+            index++
+
+            if(node.left != null) queue.push(node.left)
+            if(node.right != null) queue.push(node.right)
+        }
+
+        return result
+    }
 
 }
 
@@ -121,7 +142,10 @@ tree.insert(30);
 tree.insert(31)
 // console.log(tree.search(24));
 // console.log(tree.search(14));
-console.log(tree);
-console.log(tree.dfsInorder());
-console.log(tree.dfsPreorder());
-console.log(tree.dfsPostorder());
+// console.log(tree);
+// console.log(tree.dfsInorder());
+// console.log(tree.dfsPreorder());
+// console.log(tree.dfsPostorder());
+
+
+console.log(tree.bfs());
