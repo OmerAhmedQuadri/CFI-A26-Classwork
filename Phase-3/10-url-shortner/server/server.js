@@ -6,12 +6,19 @@ import urlRouter from './routes/url.routes.js'
 import './config/mongo.config.js'
 import cookieParser from 'cookie-parser'
 import { redirect } from './controllers/url.controllers.js'
-
+import cors from 'cors'
 
 dotenv.config()
 const PORT = process.env.PORT || 3200
 
 const app = express()
+
+if (process.env.NODE_ENV === 'development') {
+    app.use(cors({
+        origin: 'http://localhost:5173',
+        credentials: true
+    }))
+}
 app.use(cookieParser())
 app.use(express.json())
 
