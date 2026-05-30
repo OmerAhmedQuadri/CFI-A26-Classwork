@@ -21,9 +21,10 @@ const registerValidator = async ({ fullname, email, password }) => {
 export const registerMiddleware = async (req, res, next) => {
     try {
         const { fullname, email, password } = req.body || {}
+        console.log(req.body);
         const errors = await registerValidator({ fullname, email, password })
         if (Object.keys(errors).length > 0) {
-
+            console.log(errors);
             return res.status(400).json({
                 success: false,
                 message: 'Bad Request',
