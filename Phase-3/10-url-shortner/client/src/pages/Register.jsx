@@ -80,14 +80,14 @@ const Register = () => {
                 <input type="text" name='fullname' placeholder='Name' className='border p-2 rounded-lg mb-4 w-full' />
                 <input type="email" name='email' placeholder='Email' className='border p-2 rounded-lg mb-4 w-full' />
                 <input type="password" name='password' placeholder='Password' className='border p-2 rounded-lg mb-4 w-full' />
-                <button type='submit' onClick={registerHandler} className='bg-blue-500 text-white p-2 rounded-lg w-full'>Register</button>
+                <button type='submit' onClick={registerHandler} className='bg-blue-500 text-white p-2 rounded-lg w-full'>{ loading ? 'Register' : 'Please wait...' }</button>
               </form>
             </div>
             :
             <div>
               <input type="number" placeholder='123456' value={otp} onChange={(e) => setotp(e.target.value)} className='border p-2 rounded-lg mb-4 w-full' />
               <button onClick={resendOTPHandler} className='bg-white text-blue-500 '>Resend Otp</button>
-              <button onClick={verifyOTPHandler} className='bg-blue-500 text-white p-2 rounded-lg w-full'>Verify OTP</button>
+              <button onClick={verifyOTPHandler} className='bg-blue-500 text-white p-2 rounded-lg w-full'>{ loading ? 'Verify' : 'Verifying...'}</button>
             </div>
 
         }

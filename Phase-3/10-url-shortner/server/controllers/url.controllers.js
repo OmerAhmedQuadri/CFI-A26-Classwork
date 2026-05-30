@@ -3,7 +3,7 @@ import { generateShortUrl } from "../utils/shorturl.utils.js";
 
 export const createShortUrl = async (req, res) => {
     const { url } = req.body || {};
-    const user = req.user;
+    // const user = req.user;
     if (!url) {
         return res.status(400).send({
             success: false,

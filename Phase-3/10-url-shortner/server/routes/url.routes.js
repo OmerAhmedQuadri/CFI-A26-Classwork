@@ -4,10 +4,7 @@ import { createShortUrl } from '../controllers/url.controllers.js'
 
 const router = express.Router()
 
-router.use(authMiddleware)
+// router.use(authMiddleware)
 router.post('/create', createShortUrl)
-
-
-
 
 export default router
