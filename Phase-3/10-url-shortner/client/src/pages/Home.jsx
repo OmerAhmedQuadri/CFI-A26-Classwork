@@ -1,6 +1,6 @@
 import React from 'react'
 import api from '../api/axios.js'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 const Home = () => {
     const [longUrl, setlongUrl] = useState('')
@@ -8,6 +8,11 @@ const Home = () => {
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
     const [copy, setcopy] = useState(false)
+
+    useEffect(() => {
+        setError('')
+        setshortUrl('')
+    }, [longUrl])
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -34,14 +39,15 @@ const Home = () => {
         }, 2000);
     }
 
-
     return (
         <div className='w-full h-screen flex flex-col items-center justify-center'>
             <div className=' p-4 py-6 border rounded-2xl flex flex-col items-center w-md gap-4'>
                 <h1 className='text-2xl font-bold mb-4 text-blue-500'>Url Shortner</h1>
                 <div className='w-full flex flex-col items-center justify-center gap-2'>
                     <input value={longUrl} onChange={e => setlongUrl(e.target.value)} type="text" className='border p-2 rounded-lg w-full' placeholder='https://example.com/sjdfgbsa/ergergerg' />
-                    <button onClick={handleSubmit} className='bg-blue-500 text-white px-1 py-2 rounded-lg w-full'>{!loading ? 'Shorten' : 'Shortening'}</button>
+                    <button onClick={handleSubmit} disabled={loading} 
+                        className={`${loading ? 'bg-gray-500 cursor-not-allowed' : 'bg-blue-500 cursor-pointer'} text-white px-1 py-2 rounded-lg w-full`}>
+                        {!loading ? 'Shorten' : 'Shortening'}</button>
                 </div>
                 <div className='w-full flex flex-col items-center justify-center gap-4 mt-4'>
                     {shortUrl && (
@@ -54,7 +60,6 @@ const Home = () => {
                         </div>)}
                 </div>
             </div>
-
         </div>
     )
 }
