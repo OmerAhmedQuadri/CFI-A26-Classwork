@@ -36,3 +36,8 @@ export const getLongUrl = async (shortUrl, click = false) => {
     }
 
 }
+
+
+export const findUrlsByUserId = async (userId) => {
+    return await Url.find({ userId })
+}

@@ -7,6 +7,7 @@ import './config/mongo.config.js'
 import cookieParser from 'cookie-parser'
 import { redirect } from './controllers/url.controllers.js'
 import cors from 'cors'
+import { errorHandler } from './middlewares/error.middlewares.js'
 
 dotenv.config()
 const PORT = process.env.PORT || 3200
@@ -32,6 +33,8 @@ app.use('/api/users', userRouter)
 app.use('/api/urls', urlRouter)
 
 app.get('/:shortUrl', redirect)
+
+app.use(errorHandler)
 
 app.use((req, res) => {
     res.status(404).send({

@@ -1,6 +1,7 @@
 import { validatePassword } from "../services/auth.services.js"
 import { findUserByEmail, findUserByEmailAndDelete, findUserById } from "../services/user.services.js"
 import { validateJWTToken } from "../utils/jwt.utils.js"
+import { BadRequestError, UnauthorizedError } from "../utils/AppError.js"
 
 const registerValidator = async ({ fullname, email, password }) => {
     const errors = {}
@@ -25,25 +26,18 @@ export const registerMiddleware = async (req, res, next) => {
         const errors = await registerValidator({ fullname, email, password })
         if (Object.keys(errors).length > 0) {
             console.log(errors);
-            return res.status(400).json({
-                success: false,
-                message: 'Bad Request',
-                errors
-            })
+            throw new BadRequestError('Validation failed: ' + JSON.stringify(errors))
         }
 
         const existingUser = await findUserByEmail(email)
 
         if (existingUser && existingUser.status != 'pending') {
-            return res.status(400).json({
-                success: false,
-                message: 'User already exists'
-            })
+            throw new BadRequestError('Email is already registered')
         }
-        if(existingUser && existingUser.status == 'pending'){
+        if (existingUser && existingUser.status == 'pending') {
             await findUserByEmailAndDelete(email)
         }
-        
+
 
         req.user = {
             fullname,
@@ -52,11 +46,7 @@ export const registerMiddleware = async (req, res, next) => {
         }
         next()
     } catch (error) {
-        console.log(error);
-        return res.status(500).send({
-            success: false,
-            message: 'Internal Server Error'
-        })
+        next(error)
     }
 }
 
@@ -65,54 +55,32 @@ export const loginMiddleware = async (req, res, next) => {
     try {
         const { email, password } = req.body || {}
         if (!email) {
-            return res.status(400).send({
-                success: false,
-                message: 'Email is required'
-            })
+            throw new BadRequestError('Email is required')
         }
         if (!password) {
-            return res.status(400).send({
-                success: false,
-                message: 'Password is required'
-            })
+            throw new BadRequestError('Password is required')
         }
 
         const user = await findUserByEmail(email)
         if (!user) {
-            return res.status(400).send({
-                success: false,
-                message: 'User not found'
-            })
+            throw new UnauthorizedError('Invalid credentials')
         }
         if (user.status == 'pending') {
-            return res.status(400).send({
-                success: false,
-                message: 'User is not registered or verified yet'
-            })
+            throw new UnauthorizedError('User registration is not verified. Please verify your email.')
         }
 
         const isValid = await validatePassword(user._id, password)
         if (!isValid) {
-            return res.status(400).send({
-                success: false,
-                message: 'Invalid credentials'
-            })
+            throw new UnauthorizedError('Invalid credentials')
         }
         if (user.status == 'inactive') {
-            return res.status(400).send({
-                success: false,
-                message: 'User is inactive'
-            })
+            throw new UnauthorizedError('User is inactive. Please contact support.')
         }
 
         req.user = user
         next()
     } catch (error) {
-        console.log(error);
-        return res.status(500).send({
-            success: false,
-            message: 'Internal Server Error'
-        })
+        next(error)
     }
 }
 
@@ -121,27 +89,17 @@ export const authMiddleware = async (req, res, next) => {
     try {
         const token = req.cookies.token
         if (!token) {
-            return res.status(401).send({
-                success: false,
-                message: 'Unauthorized'
-            })
+            throw new UnauthorizedError('Unauthorized')
         }
         const id = await validateJWTToken(token)
 
         if (!id) {
-            return res.status(401).send({
-                success: false,
-                message: 'Unauthorized'
-            })
+            throw new UnauthorizedError('Unauthorized')
         }
-        
+
         req.user = await findUserById(id)
         next()
     } catch (error) {
-        console.log(error);
-        return res.status(500).send({
-            success: false,
-            message: 'Internal Server Error'
-        })
+        next(error)
     }
 }

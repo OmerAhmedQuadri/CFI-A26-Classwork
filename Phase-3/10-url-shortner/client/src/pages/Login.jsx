@@ -31,7 +31,7 @@ const Login = () => {
             setloading(false)
             console.log(response.data.message);
             if(response.data.success){ 
-                navigate('/home')
+                navigate('/home', { replace: true })
             }
         } catch (error) {
             console.log(error);
